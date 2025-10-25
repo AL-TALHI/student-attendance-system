@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="utf-8">
+  <title>تسجيل الحضور</title>
+  <link rel="stylesheet" href="/static/style.css">
+  <script src="/static/script.js" defer></script>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/dashboard" class="btn">العودة</a>
+    <a href="/reports" class="btn">التقارير</a>
+  </nav>
+  <main>
+    <h2>تسجيل الحضور - {{ today }}</h2>
+    <form method="POST">
+      <label>تاريخ الحضور</label>
+      <input type="date" name="date" value="{{ today }}">
+      <table class="table">
+        <thead><tr><th>الاسم</th><th>الحالة</th><th>ملاحظة</th></tr></thead>
+        <tbody>
+          {% for s in students %}
+          <tr>
+            <td>{{ s.name }}</td>
+            <td>
+              <select name="{{ s.id }}">
+                <option value="حاضر">حاضر</option>
+                <option value="غائب بعذر">غائب بعذر</option>
+                <option value="غائب بدون عذر">غائب بدون عذر</option>
+                <option value="متأخر بعذر">متأخر بعذر</option>
+                <option value="متأخر بدون عذر">متأخر بدون عذر</option>
+                <option value="مستأذن">مستأذن</option>
+                <option value="هارب من الحصة">هارب من الحصة</option>
+              </select>
+            </td>
+            <td><input name="note_{{ s.id }}" placeholder="ملاحظة (اختياري)"></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <button class="btn" type="submit">حفظ</button>
+    </form>
+  </main>
+</body>
+</html>
